@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Navbar,
-  Center,
   Tooltip,
   UnstyledButton,
   createStyles,
   Stack,
-  Title,
-  Group,
-  Header,
 } from "@mantine/core";
 import {
   TablerIcon,
@@ -18,6 +14,8 @@ import {
   IconSettings,
 } from "@tabler/icons";
 import UserColorScheme from "../Styles/UserColorScheme";
+import Progress from "../pages/Progress";
+import Activity from "../pages/Activity";
 import Medication from "../pages/Medication";
 
 const useStyles = createStyles((theme) => ({
@@ -79,11 +77,9 @@ const mockdata = [
   { icon: IconSettings, label: "Settings" },
 ];
 
-let activePage;
 
-export function HomePage() {
+export function HomePage(props: any) {
   const [active, setActive] = useState(2);
-  const [activePage, setActivePage] = useState(<IconBarbell/>);
 
   const links = mockdata.map((link, index) => (
     <NavbarLink
@@ -94,19 +90,19 @@ export function HomePage() {
         setActive(index);
         switch(index) {
             case 0:
-                setActivePage(<IconPill/>)
+                props.active(<Medication/>)
                 break;
             case 1:
-                setActivePage(<IconBarbell/>)
+              props.active(<Activity/>)
                 break;
             case 2:
-                setActivePage(<IconRun/>)
+              props.active(<Progress/>)
                 break;
             case 3:
-                setActivePage(<IconSettings/>)
+              props.active(<IconSettings/>)
                 break;
             default:
-                setActivePage(<IconRun/>)
+              props.active(<IconRun/>)
                 break;
         }
     }}

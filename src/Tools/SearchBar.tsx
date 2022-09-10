@@ -1,13 +1,15 @@
-import { TextInput, TextInputProps, ActionIcon, useMantineTheme } from '@mantine/core';
+import { TextInput, TextInputProps, ActionIcon, useMantineTheme, Group } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconArrowLeft } from '@tabler/icons';
 
 export function SearchBar(props: TextInputProps) {
   const theme = useMantineTheme();
 
   return (
+    <Group position="center" grow>
     <TextInput
       icon={<IconSearch size={18} stroke={1.5} />}
       radius="xl"
+      width={50}
       size="md"
       rightSection={
         <ActionIcon size={32} radius="xl" color={theme.primaryColor} variant="filled">
@@ -18,9 +20,10 @@ export function SearchBar(props: TextInputProps) {
           )}
         </ActionIcon>
       }
-      placeholder="Search questions"
-      rightSectionWidth={42}
+      placeholder="Search FDA"
+      rightSectionWidth={40}
       {...props}
     />
+    </Group>
   );
 }
