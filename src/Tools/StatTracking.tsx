@@ -56,15 +56,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface StatsGroupProps {
-  data: { 
-    title: string,
-    stats: string, 
-    description: string,
-  }[];
-}
-
-const data = [{title: "Rombus", stats: "Very Cool", description: "Fucking love shapes n shit"}]
+const data = [
+  {title: "", stats: "You have been on a roll this month! You have increased your rank by 14 or 1% and you also ran 1.5 more miles!", description: ""}
+]
 
 export function StatTracking() {
   const { classes } = useStyles();

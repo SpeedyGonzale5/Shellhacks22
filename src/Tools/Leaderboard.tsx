@@ -129,7 +129,7 @@ export default function Leaderboard({ data }: TableSortProps) {
   ));
 
   return (
-    <Group position='right'>
+    <Group>
     
     <ScrollArea>
       <Center><Title>Leaderboard</Title></Center>
@@ -145,7 +145,7 @@ export default function Leaderboard({ data }: TableSortProps) {
         horizontalSpacing="md"
         verticalSpacing="xs"
         width={50}
-        sx={{ tableLayout: 'auto', minWidth: 300 }}
+        sx={{ tableLayout: "fixed", minWidth: 750 }}
       >
         <thead>
           <tr>
@@ -161,14 +161,14 @@ export default function Leaderboard({ data }: TableSortProps) {
               reversed={reverseSortDirection}
               onSort={() => setSorting('email')}
             >
-              Email
+              Miles Ran
             </Th>
             <Th
               sorted={sortBy === 'company'}
               reversed={reverseSortDirection}
               onSort={() => setSorting('company')}
             >
-              Company
+              Rank
             </Th>
           </tr>
         </thead>

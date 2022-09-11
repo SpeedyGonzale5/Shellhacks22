@@ -88,7 +88,7 @@ export default function Settings() {
   const [messagesEnable, setMessagesEnable] = useState(false);
 
   const BMICalculator = () => {
-    if((!weightValue || weightValue === 0) || (!heightINValue || heightINValue === 0) || (!heightFTValue || heightFTValue === 0)){
+    if((!weightValue || weightValue === 0) || (!heightINValue || !(heightINValue > 0)) || (!heightFTValue || !(heightFTValue > 0))){
         return "Please Fill All Fields"
     }
     const weightConv = weightValue*703;
