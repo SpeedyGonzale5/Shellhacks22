@@ -17,6 +17,7 @@ import UserColorScheme from "../Styles/UserColorScheme";
 import Progress from "../pages/Progress";
 import Activity from "../pages/Activity";
 import Medication from "../pages/Medication";
+import Settings from "../pages/Settings";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -99,7 +100,7 @@ export function HomePage(props: any) {
               props.active(<Progress/>)
                 break;
             case 3:
-              props.active(<IconSettings/>)
+              props.active(<Settings title={"Settings"} description={""} data={[{"title": "Opt in for text messages", "description": ""}]}/>)
                 break;
             default:
               props.active(<IconRun/>)
