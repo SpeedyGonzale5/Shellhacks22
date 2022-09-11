@@ -1,10 +1,51 @@
 import { useState } from "react";
-
-import { createStyles, Card, Group, Switch, Text } from '@mantine/core';
+import { useInterval } from '@mantine/hooks';
+import { Button, createStyles, Card,  Group, Progress, Switch, Select, Text, TextInput } from '@mantine/core';
 
 
 const useStyles = createStyles((theme) => ({
-  card: {
+    
+    //styling for submit button
+    button: {
+        position: 'relative',
+        transition: 'background-color 150ms ease',
+      },
+    
+      progress: {
+        position: 'absolute',
+        bottom: -1,
+        right: -1,
+        left: -1,
+        top: -1,
+        height: 'auto',
+        backgroundColor: 'transparent',
+        zIndex: 0,
+      },
+    
+      labelb: {
+        position: 'relative',
+        zIndex: 1,
+      },
+
+    root: {
+        position: 'relative',
+      },
+    
+      input: {
+        height: 'auto',
+        paddingTop: 18,
+      },
+    
+      label: {
+        position: 'absolute',
+        pointerEvents: 'none',
+        fontSize: theme.fontSizes.xs,
+        paddingLeft: theme.spacing.sm,
+        paddingTop: theme.spacing.sm / 2,
+        zIndex: 1,
+      },
+
+    card: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
   },
 
@@ -45,11 +86,30 @@ function withEvent(func: Function): React.ChangeEventHandler<any> {
   }
 
 export default function Settings({ title, description, data }: SwitchesCardProps) {
-  const { classes } = useStyles();
+  const { classes, theme } = useStyles();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  
+  //used for submit button
+  const interval = useInterval(
+    () =>
+      setProgress((current) => {
+        if (current < 100) {
+          return current + 1;
+        }
+
+        interval.stop();
+        setLoaded(true);
+        return 0;
+      }),
+    20
+  );
+
+  //Constant below stores the data from the input
   const submitData = () => {
     console.log(`${phoneNumber} - ${age} - ${weight} - ${height}`);
 }
@@ -75,20 +135,40 @@ export default function Settings({ title, description, data }: SwitchesCardProps
         {description}
       </Text>
       {items}
-      <label>Phone Number: </label>
-      <input type="text" onChange={withEvent(setPhoneNumber)}></input>
-      <br/>
-      <label>Age: </label>
-      <input type="text" onChange={withEvent(setAge)}></input>
-      <br/>
-      <label>Weight: </label>
-      <input type="text" onChange={withEvent(setWeight)}></input>
-      <br/>
-      <label>Height: </label>
+      <div>
+      <TextInput label="Phone Number" placeholder="e.g. 999-999-9999" onChange={withEvent(setPhoneNumber)} classNames={classes} />
+      <TextInput label="Age"  onChange={withEvent(setAge)} classNames={classes} />
+      <TextInput label="Weight"  onChange={withEvent(setWeight)} classNames={classes} />
+      <TextInput label="Height"  onChange={withEvent(setHeight)} classNames={classes} />
+      <Button
+      fullWidth
+      className={classes.button}
+      onClick={() => (loaded ? setLoaded(false) : !interval.active && interval.start())}
+      color={loaded ? 'teal' : theme.primaryColor}
+    >
+      <div className={classes.labelb}>
+        {progress !== 0 ? 'Submit' : loaded ? 'Submitted' : 'Submit'}
+      </div>
+      {progress !== 0 && (
+        <Progress
+          value={progress}
+          className={classes.progress}
+          color={theme.fn.rgba(theme.colors[theme.primaryColor][2], 0.35)}
+          radius="sm"
+        />
+      )}
+    </Button>
+      </div>
+     
+    {/* Need to get onclick on button */}
+      {/* <label>Height: </label>
       <input type="text" onChange={withEvent(setHeight)}></input>
       <br/>
-      <button onClick={withEvent(submitData)}>Submit</button>
+      <button onClick={withEvent(submitData)}>Submit</button> */}
     </Card>
     </>
   );
+
+  
 }
+
