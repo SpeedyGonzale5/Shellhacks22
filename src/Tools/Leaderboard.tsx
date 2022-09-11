@@ -8,6 +8,9 @@ import {
   Text,
   Center,
   TextInput,
+  Paper,
+  Divider,
+  Title,
 } from '@mantine/core';
 import { keys } from '@mantine/utils';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons';
@@ -98,7 +101,7 @@ function sortData(
   );
 }
 
-export default function FDADataSearch({ data }: TableSortProps) {
+export default function Leaderboard({ data }: TableSortProps) {
   const [search, setSearch] = useState('');
   const [sortedData, setSortedData] = useState(data);
   const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
@@ -126,7 +129,11 @@ export default function FDADataSearch({ data }: TableSortProps) {
   ));
 
   return (
+    <Group position='right'>
+    
     <ScrollArea>
+      <Center><Title>Leaderboard</Title></Center>
+      <Divider my="sm" />
       <TextInput
         placeholder="Search by any field"
         mb="md"
@@ -137,7 +144,8 @@ export default function FDADataSearch({ data }: TableSortProps) {
       <Table
         horizontalSpacing="md"
         verticalSpacing="xs"
-        sx={{ tableLayout: 'fixed', minWidth: 700 }}
+        width={50}
+        sx={{ tableLayout: 'auto', minWidth: 300 }}
       >
         <thead>
           <tr>
@@ -179,5 +187,6 @@ export default function FDADataSearch({ data }: TableSortProps) {
         </tbody>
       </Table>
     </ScrollArea>
+    </Group>
   );
 }
