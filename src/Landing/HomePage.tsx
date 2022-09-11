@@ -4,7 +4,7 @@ import {
   Tooltip,
   UnstyledButton,
   createStyles,
-  Stack,
+  Stack
 } from "@mantine/core";
 import {
   TablerIcon,
@@ -17,6 +17,7 @@ import UserColorScheme from "../Styles/UserColorScheme";
 import Progress from "../pages/Progress";
 import Activity from "../pages/Activity";
 import Medication from "../pages/Medication";
+import Settings from "../pages/Settings";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -77,7 +78,6 @@ const mockdata = [
   { icon: IconSettings, label: "Settings" },
 ];
 
-
 export function HomePage(props: any) {
   const [active, setActive] = useState(2);
 
@@ -99,7 +99,7 @@ export function HomePage(props: any) {
               props.active(<Progress/>)
                 break;
             case 3:
-              props.active(<IconSettings/>)
+              props.active(<Settings />)
                 break;
             default:
               props.active(<IconRun/>)
@@ -118,6 +118,7 @@ export function HomePage(props: any) {
             variant: "filled",
             color: theme.primaryColor,
           }).background,
+          borderTop: 0
         })}
       >
         
